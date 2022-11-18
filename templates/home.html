@@ -6,12 +6,19 @@
     <title>Loja Do Pedrin</title>
 </head>
 <body>
+    </br>
+
+    <form class="container" action="create" method="POST">
+        <input name="name" class='form-control'/>
+        <button class="btn btn-primary">salvar</button>
+    </form>
+
     <table class="table table-hover">
 
         {% for task in tasks: %}
         <tr>
-            <td style="color: cyan;">{{task['name']}}</td>
-            <td style="color: red;" >{{task['finished']}}</td>
+            <td >{{task['name']}}</td>
+            <td >{{task['finished']}}</td>
         </tr>
         {% endfor %}           
     </table>

@@ -7,14 +7,13 @@
 </head>
 <body>
     <table class="table table-hover">
+
+        {% for task in tasks: %}
         <tr>
-            <td style="color: cyan;">feijão</td>
-            <td style="color: red;" >arroz</td>
+            <td style="color: cyan;">{{task['name']}}</td>
+            <td style="color: red;" >{{task['finished']}}</td>
         </tr>
-        <tr>
-            <td>sorvete, pudim</td>
-            <td>brigadeiro, beijinho</td>
-        </tr>
+        {% endfor %}           
     </table>
 </body>
 </html>

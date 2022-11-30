@@ -32,13 +32,13 @@
                 <h4> Avaliação </h4>
             </div>
         </div>
-        {% for task in tasks: %}
+        {% for dado in dados: %}
             <div class="row">
                 <div class = 'col'>
-                    {{task['name']}}
+                    {{dado['name']}}
                 </div>
                 <div class = 'col'>
-                    {{task['avaliacao']}}
+                    {{dado['avaliacao']}}
                 </div>
                 <div class = 'col' action="delete" methods="DELETE">
                     <button class="btn btn-danger"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">

@@ -1,25 +1,31 @@
 from flask import Flask , render_template , request
+import pandas
+import csv
+import uuid
 
 app = Flask(__name__)
 
-tasks = [
-    {'name' : 'estudar' , 'avaliacao' : '2/10'},
-    {'name' : 'dormir' , 'avaliacao' : '10/10'}
-]
+filmes = []
 
 @app.route('/')
-def home():
+def home(): 
     #templates
-    return render_template('home.html' , tasks=tasks)
+    return render_template('home.html' , filmes=filmes)
 
+#Salva as variáveis no form em um arquivo.csv
 @app.route('/create' , methods=['POST'])
 def create():
+
+    #Onde puxa as variáveis forms
     name = request.form['name']
     avaliacao = request.form['avaliacao']
-    #number = request.form['number']
-    task = {'name' : name, 'avaliacao': avaliacao}
-    tasks.append(task)
-    return render_template('home.html' , tasks=tasks)
+    entrada.append([uuid4(), nome, avaliação])
+
+    #Adicionar uma nova row no .csv
+    with open():
+        filme = {'name' : name, 'avaliacao': avaliacao}
+        filmes.append(filme)
+        return render_template('home.html' , filmes=filmes)
 
 @app.route('/delete', methods=['DELETE'])
 def delete(task):

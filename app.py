@@ -17,7 +17,7 @@ def index():
 @app.route('/html')
 def home(): 
     #templates
-    return render_template('home.html' , filmes=filmes)
+    return render_template('create.html' , filmes=filmes)
 
 #Salva as variáveis no form em um arquivo.csv
 @app.route('/create' , methods=['POST'])
@@ -26,7 +26,7 @@ def create():
     #Onde puxa as variáveis forms
     name = request.form['name']
     avaliacao = request.form['avaliacao']
-    filmes.append([uuid4(), nome, avaliação])
+    filmes.append([uuid4(), name, avaliacao])
 
     #Adicionar uma nova row no .csv
     with open('filmes.csv','a') as file_out:
@@ -42,7 +42,7 @@ def create():
 @app.route('/edit/<nome>/<avaliacao>')
 def edit(nome,avaliacao):
     editList = [nome,avaliacao]
-    return render_template('editDelete.html', editList=editList)
+    return render_template('edit.html', editList=editList)
 
 #Onde salva as variáveis modificadas
 @app.route('/saveEdit', methods=['SAVE'])
@@ -69,6 +69,27 @@ def saveEdit():
     dataFrame.to_csv('filmes.csv')
 
     #Redireciona as variáveis para '/'
+    with open('filmes.csv', 'rt') as file_in:
+        dados = csv.DictReader(file_in)
+        return render_template('home.html', dados=dados)
+
+#Deleta as linhas pelo Id
+@app.route('/delete/<id>')
+def delete(id):
+
+    #Abre o arquivo pelo pandas
+    dataFrame = pd.read_csv("filmes.csv") 
+
+    #Coloca o index para coluna 'id'
+    dataFrame = dataFrame.set_index("Id") 
+
+    #Pega toda a linha que tiver a mesma variavel "id" na coluna index
+    dataFrame.drop(id, axis='index', inplace=True) 
+    
+    #Salva o novo DataFrame
+    dataFrame.to_csv('filmes.csv')  
+
+    #Le o arquivo e envia para a variável do Html 
     with open('filmes.csv', 'rt') as file_in:
         dados = csv.DictReader(file_in)
         return render_template('home.html', dados=dados)
